@@ -1,0 +1,19 @@
+# Fixed heat flow boundary condition.
+#
+# This model allows a specified amount of heat flow rate to be "injected" into a thermal system at a given port.
+# The constant amount of heat flow rate `Q` is given as a parameter. The heat flows into the component to which
+# the component `FixedHeatFlow` is connected, if parameter `Q` is positive.
+
+component FixedHeatFlow
+  # Fixed heat flow rate at port
+  parameter Q::HeatFlowRate
+  # Reference temperature
+  parameter T_ref::Temperature = 293.15
+  # Temperature coefficient of heat flow rate
+  parameter alpha::LinearTemperatureCoefficient = 0.0
+  node = Node() [
+    { "Dyad": { "placement": { "icon": { "iconName": "node_b", "x1": 900, "y1": 400, "x2": 1100, "y2": 600 } } } }
+  ]
+relations
+  node.Q = -Q * (1 + alpha * (node.T - T_ref))
+end

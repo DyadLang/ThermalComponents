@@ -1,0 +1,12 @@
+
+# Lumped thermal element for heat convection with resistance as an input.
+
+component ConvectiveResistance
+  extends ConvectiveElement1D
+  # Signal representing the convective thermal resistance
+  Rc = RealInput() [
+    { "Dyad": { "placement": { "icon": { "x1": 400, "y1": -100, "x2": 600, "y2": 100 } } } }
+  ]
+relations
+  ΔT = Rc * Q
+end

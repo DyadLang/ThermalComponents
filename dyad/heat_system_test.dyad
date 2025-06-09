@@ -1,0 +1,35 @@
+# Heat system with a fixed temperature source
+# This is a test component for `HeatCapacitor`, `FixedTemperature` and
+# `ThermalConductor`
+
+component HeatSystemTest
+    parameter T::Real = 10.0
+    parameter T0::Real = -10.0
+    parameter C::Real = 10.0
+    parameter G::Real = 10.0
+    mass = HeatCapacitor(C = C, T0 = T0)
+    source = FixedTemperature(T = T)
+    conductor = ThermalConductor(G = G)
+relations
+  connect(source.node, conductor.node_a)
+  connect(conductor.node_b, mass.node)
+metadata {
+  "Dyad" : {
+    "tests" : {
+      "case1" : {
+        "stop" : 10.0,
+        "atol": {
+          "mass.T" : 1e-3,
+          "mass.dT" : 1e-3
+        },
+        "expect" : {
+          "final" : {
+            "mass.T" : 9.999,
+            "mass.dT" : 0
+          }
+        }
+      }
+    }
+  }
+}
+end

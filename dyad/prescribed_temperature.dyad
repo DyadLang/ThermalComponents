@@ -1,0 +1,17 @@
+# This model represents a variable temperature boundary condition.
+#
+# The temperature in kelvin is given as input signal to the `RealInput` `T`. The
+# effect is that an instance of this model acts as an infinite reservoir, able to
+# absorb or generate as much energy as required to keep the temperature at the
+# specified value.
+
+component PrescribedTemperature
+  node = Node() [
+    { "Dyad": { "placement": { "icon": { "iconName": "node_b", "x1": 900, "y1": 400, "x2": 1100, "y2": 600 } } } }
+  ]
+  T = RealInput() [
+    { "Dyad": { "placement": { "icon": { "x1": -100, "y1": 400, "x2": 100, "y2": 600 } } } }
+  ]
+relations
+  node.T = T
+end

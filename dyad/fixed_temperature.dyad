@@ -1,0 +1,14 @@
+# Fixed temperature boundary condition in kelvin.
+#
+# This model defines a fixed temperature `T` at its port in kelvin, i.e., it
+# defines a fixed temperature as a boundary condition.
+
+component FixedTemperature
+  node = Node() [
+    { "Dyad": { "placement": { "icon": { "iconName": "node_b", "x1": 900, "y1": 400, "x2": 1100, "y2": 600 } } } }
+  ]
+  # Fixed temperature boundary condition
+  parameter T::Temperature
+relations
+  node.T = T
+end

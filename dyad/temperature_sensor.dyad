@@ -1,0 +1,14 @@
+# Absolute temperature sensor
+
+component TemperatureSensor
+  node = Node() [
+    { "Dyad": { "placement": { "icon": { "iconName": "node_a", "x1": -100, "y1": 400, "x2": 100, "y2": 600 } } } }
+  ]
+  # Absolute temperature as output signal
+  T = RealOutput() [
+    { "Dyad": { "placement": { "icon": { "x1": 900, "y1": 400, "x2": 1100, "y2": 600 } } } }
+  ]
+relations
+  T = node.T
+  node.Q = 0
+end

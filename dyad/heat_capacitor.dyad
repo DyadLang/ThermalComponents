@@ -1,0 +1,20 @@
+# Lumped thermal element storing heat
+
+component HeatCapacitor
+  # Heat capacity of the element
+  parameter C::HeatCapacity
+  # Temperature of the element
+  variable T::Temperature
+  # Initial temperature of the element
+  parameter T0::Temperature
+  # Time derivative of temperature `T`
+  variable dT::TemperatureSlope
+  node = Node() [
+    { "Dyad": { "placement": { "icon": { "x1": 400, "y1": 900, "x2": 600, "y2": 1100 } } } }
+  ]
+relations
+  initial T = T0
+  T = node.T
+  der(T) = dT
+  dT = node.Q / C
+end

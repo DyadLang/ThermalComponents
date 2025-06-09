@@ -1,0 +1,11 @@
+# Lumped thermal element for radiation heat transfer
+
+component BodyRadiation
+  extends Element1D
+  # Net radiation conductance between two surfaces
+  parameter Gr::Real
+  # Stefan–Boltzmann constant
+  final parameter σ::Real = 5.670374419 * 10^(-8)
+relations
+  Q = Gr * σ * (node_a.T^4 - node_b.T^4)
+end

@@ -1,0 +1,9 @@
+# Lumped thermal element transporting heat without storing it
+
+component ThermalConductor
+  extends Element1D
+  # Constant thermal conductance of the material
+  parameter G::ThermalConductance
+relations
+  Q = G * ΔT
+end

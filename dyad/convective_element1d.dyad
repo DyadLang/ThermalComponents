@@ -1,0 +1,19 @@
+# This partial model contains the basic connectors and variables to allow heat
+# transfer models to be created that do not store energy. This model defines and
+# includes equations for the temperature drop across the element, `ΔT`, and the heat
+# flow rate through the element from `solid` to `fluid`, `Q`.
+
+partial component ConvectiveElement1D
+  solid = Node() [
+    { "Dyad": { "placement": { "icon": { "iconName": "node_a", "x1": -100, "y1": 400, "x2": 100, "y2": 600 } } } }
+  ]
+  fluid = Node() [
+    { "Dyad": { "placement": { "icon": { "iconName": "node_b", "x1": 900, "y1": 400, "x2": 1100, "y2": 600 } } } }
+  ]
+  variable ΔT::Temperature
+  variable Q::HeatFlowRate
+relations
+  ΔT = solid.T - fluid.T
+  solid.Q = Q
+  fluid.Q = -Q
+end

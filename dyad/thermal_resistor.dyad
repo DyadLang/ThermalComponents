@@ -1,0 +1,9 @@
+# Lumped thermal element, with resistance, transporting heat without storing it.
+
+component ThermalResistor
+  extends Element1D
+  # Constant thermal resistance of the material
+  parameter R::ThermalResistance
+relations
+  ΔT = R * Q
+end

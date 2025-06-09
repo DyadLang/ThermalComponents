@@ -1,0 +1,18 @@
+# Heat flow rate sensor
+
+component HeatFlowSensor
+  # Heat flow from node_a to node_b as output signal
+  Q = RealOutput() [
+    { "Dyad": { "placement": { "icon": { "x1": 400, "y1": 900, "x2": 600, "y2": 1100 } } } }
+  ]
+  node_a = Node() [
+    { "Dyad": { "placement": { "icon": { "iconName": "node_a", "x1": -100, "y1": 400, "x2": 100, "y2": 600 } } } }
+  ]
+  node_b = Node() [
+    { "Dyad": { "placement": { "icon": { "iconName": "node_b", "x1": 900, "y1": 400, "x2": 1100, "y2": 600 } } } }
+  ]
+relations
+  node_a.T = node_b.T
+  node_a.Q + node_b.Q = 0
+  Q = node_a.Q
+end

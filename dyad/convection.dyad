@@ -1,0 +1,11 @@
+# Lumped thermal element for heat convection
+
+component Convection
+  extends ConvectiveElement1D
+  # Signal representing the convective thermal conductance
+  Gc = RealInput() [
+    { "Dyad": { "placement": { "icon": { "x1": 400, "y1": -100, "x2": 600, "y2": 100 } } } }
+  ]
+relations
+  Q = Gc * ΔT
+end

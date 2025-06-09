@@ -1,0 +1,18 @@
+# Relative temperature sensor
+
+component RelativeTemperatureSensor
+  node_a = Node() [
+    { "Dyad": { "placement": { "icon": { "iconName": "node_a", "x1": -100, "y1": 400, "x2": 100, "y2": 600 } } } }
+  ]
+  node_b = Node() [
+    { "Dyad": { "placement": { "icon": { "iconName": "node_b", "x1": 900, "y1": 400, "x2": 1100, "y2": 600 } } } }
+  ]
+  # Relative temperature as output signal
+  T_rel = RealOutput() [
+    { "Dyad": { "placement": { "icon": { "x1": 400, "y1": 900, "x2": 600, "y2": 1100 } } } }
+  ]
+relations
+  T_rel = node_a.T - node_b.T
+  0 = node_a.Q
+  0 = node_b.Q
+end

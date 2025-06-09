@@ -1,0 +1,52 @@
+# This model connects 2 masses at different temperature. And, compares and tests
+# initial and final temperatures of these masses. This components tests
+# `RelativeTemperatureSensor` and `TemperatureSensor`.
+
+component TemperatureOfTwoMassesTest
+  mass1 = HeatCapacitor(C = 15, T0 = 373.15)
+  mass2 = HeatCapacitor(C = 15, T0 = 273.15)
+  conduction = ThermalConductor(G=10)
+  relative_temperature_sensor = RelativeTemperatureSensor()
+  temperature_sensor1 = TemperatureSensor()
+  temperature_sensor2 = TemperatureSensor()
+  # Projected final temperature
+  variable final_T::Temperature
+relations
+  final_T = (mass1.T0 * mass1.C + mass2.T0 * mass2.C) / (mass1.C + mass2.C)
+  connect(mass1.node, conduction.node_a)
+  connect(conduction.node_b, mass2.node)
+  connect(mass1.node, relative_temperature_sensor.node_a)
+  connect(mass2.node, relative_temperature_sensor.node_b)
+  connect(mass1.node, temperature_sensor1.node)
+  connect(mass2.node, temperature_sensor2.node)
+metadata {
+  "Dyad" : {
+    "tests" : {
+      "case1" : {
+        "stop" : 10.0,
+        "atol": {
+          "mass1.T" : 1e-3,
+          "mass2.T" : 1e-3,
+          "temperature_sensor1.T" : 1e-3,
+          "temperature_sensor2.T" : 1e-3,
+          "relative_temperature_sensor.T_rel" : 1e-3
+        },
+        "expect" : {
+          "initial" : {
+            "temperature_sensor1.T" : 373.15,
+            "temperature_sensor2.T" : 273.15,
+            "relative_temperature_sensor.T_rel" : 100.0
+          },
+          "signals" : [
+            "mass1.node.T",
+            "mass2.node.T",
+            "temperature_sensor1.T",
+            "temperature_sensor2.T",
+            "relative_temperature_sensor.T_rel"
+          ]
+        }
+      }
+    }
+  }
+}
+end

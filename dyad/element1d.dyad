@@ -1,0 +1,18 @@
+# This partial model contains the basic connectors and variables to allow heat transfer models to be created that do not
+# store energy. This model defines and includes equations for the temperature drop across the element, `dT`, and the heat
+# flow rate through the element from `node_a` to `node_b`, `Q`.
+
+partial component Element1D
+  node_a = Node() [
+    { "Dyad": { "placement": { "icon": { "iconName": "node_a", "x1": -100, "y1": 400, "x2": 100, "y2": 600 } } } }
+  ]
+  node_b = Node() [
+    { "Dyad": { "placement": { "icon": { "iconName": "node_b", "x1": 900, "y1": 400, "x2": 1100, "y2": 600 } } } }
+  ]
+  variable ΔT::Temperature
+  variable Q::HeatFlowRate
+relations
+  ΔT = node_a.T - node_b.T
+  node_a.Q = Q
+  node_a.Q + node_b.Q = 0
+end

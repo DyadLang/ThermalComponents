@@ -1,0 +1,23 @@
+# Prescribed heat flow boundary condition.
+#
+# This model allows a specified amount of heat flow rate to be "injected" into a
+# thermal system at a given port. The amount of heat is given by the input signal
+# `Q_flow` into the model. The heat flows into the component to which the component
+# `PrescribedHeatFlow` is connected, if the input signal is positive. If parameter
+# alpha is > 0, the heat flow is multiplied by `1 + alpha*(port.T - T_ref`) in order
+# to simulate temperature dependent losses.
+
+component PrescribedHeatFlow
+  # Reference temperature
+  parameter T_ref::Temperature = 293.15
+  # Temperature coefficient of heat flow rate
+  parameter alpha::LinearTemperatureCoefficient = 0.0
+  node = Node() [
+    { "Dyad": { "placement": { "icon": { "iconName": "node_b", "x1": 900, "y1": 400, "x2": 1100, "y2": 600 } } } }
+  ]
+  Q_flow = RealInput() [
+    { "Dyad": { "placement": { "icon": { "x1": -100, "y1": 400, "x2": 100, "y2": 600 } } } }
+  ]
+relations
+  node.Q = -Q_flow * (1 + alpha * (node.T - T_ref))
+end
